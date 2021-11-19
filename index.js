@@ -2,11 +2,11 @@ const express = require("express");
 const { Client } = require("pg");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
-const app = express();
-const jsonParser = express.json();
 const publicPath = path.join(__dirname, "public");
 
 app.use(express.static(publicPath));
+app.use(express.json());
+
 app.get("/", function (request, response) {
   response.sendFile(path.join(publicPath, "index.html"));
 });
@@ -29,12 +29,19 @@ app.get("/top10", function (request, response) {
   const rows = [
     { id: 1, username: "name1", total: 100 },
     { id: 2, username: "name2", total: 50 },
-    { id: 3, username: "name3", total: 150 },
+    { id: 3, username: "name3", total: 10 },
+    { id: 4, username: "name4", total: 110 },
+    { id: 5, username: "name7", total: 30 },
+    { id: 6, username: "name6", total: 15 },
+    { id: 7, username: "name5", total: 240 },
+    { id: 8, username: "name8", total: 5 },
+    { id: 9, username: "name10", total: 120 },
+    { id: 10, username: "name9", total: 101 },
   ];
   response.json(rows);
 });
 
-app.post("/add", jsonParser, function (request, response) {
+app.post("/add", function (request, response) {
   //client.connect();
   if (!request.body || !request.body.username || !request.body.total) return response.sendStatus(400);
   // const query = {
