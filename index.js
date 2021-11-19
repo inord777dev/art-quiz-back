@@ -18,15 +18,14 @@ const client = new Client({
     rejectUnauthorized: false,
   },
 });
+client.connect();
 
 app.get('/top10', function (request, response) {
-  client.connect();
   client.query(
     'select id, username, total from results order by total DESC LIMIT 10',
     (err, res) => {
       if (err) response.sendStatus(400);
       response.json(res.rows);
-      client.end();
     }
   );
   // const rows = [
@@ -45,7 +44,6 @@ app.get('/top10', function (request, response) {
 });
 
 app.post('/add', function (request, response) {
-  client.connect();
   if (!request.body || !request.body.username || !request.body.total)
     return response.sendStatus(400);
   const query = {
@@ -55,7 +53,6 @@ app.post('/add', function (request, response) {
   client.query(query, (err, res) => {
     if (err) response.sendStatus(400);
     response.sendStatus(200);
-    client.end();
   });
   // response.json(request.body);
 });
