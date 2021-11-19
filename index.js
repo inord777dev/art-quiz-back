@@ -40,7 +40,7 @@ app.get('/top10', function (request, response) {
   //   { id: 9, username: "name10", total: 120 },
   //   { id: 10, username: "name9", total: 101 },
   // ];
-  response.json(rows);
+  // response.json(rows);
 });
 
 app.post('/add', function (request, response) {
